@@ -1,0 +1,36 @@
+name: Build WaveXVZ APK
+
+on:
+  push:
+  schedule:
+    - cron: '0 16 * * 6'  # Minggu jam 00:00 WITA
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: ⚙️ Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 'stable'
+
+    - name: 📦 Install Dependencies
+      run: flutter pub get
+
+    - name: 🔨 Build APK
+      run: flutter build apk --release
+
+    - name: 📝 Rename APK
+      run: |
+        mv build/app/outputs/flutter-apk/app-release.apk WaveXVZ.apk
+
+    - name: 🚀 Send to Telegram
+      run: |
+        curl -F chat_id=${{ secrets.CHAT_ID }} \
+             -F document=@WaveXVZ.apk \
+             -F caption="🔥 WaveXVZ APK terbaru siap pakai!" \
+             https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendDocument
