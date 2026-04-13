@@ -10,16 +10,17 @@ jobs:
     steps:
       - name: 📥 Checkout Repo
         uses: actions/checkout@v4
-      - name: ⚙️ Setup Flutter
+      - name: ⚙️ Setup Flutter (JALUR BETA)
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-          flutter-version: '3.24.0'
+          channel: 'beta' # KITA PINDAH KE KASTA BETA BIAR DARTNYA TINGGI!
       - name: 📦 Install Dependencies
-        run: flutter pub get
+        run: |
+          flutter config --no-analytics
+          flutter pub get
       - name: 🏗️ Build APK
         run: flutter build apk --release
-      - name: 🚀 BUNGKUS APK (ARTIFACT)
+      - name: 🚀 BUNGKUS APK
         uses: actions/upload-artifact@v4
         with:
           name: WaveXVZ-Kasta-Maestro
