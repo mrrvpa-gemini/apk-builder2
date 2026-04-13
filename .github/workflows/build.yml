@@ -1,0 +1,34 @@
+name: Build WaveXVZ APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      - name: 📦 Install Dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Build APK Kasta Maestro
+        run: flutter build apk --release
+
+      - name: 📝 Rename APK
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk WaveXVZ.apk
+
+      - name: 🚀 Send to Telegram
+        run: |
+          curl -F chat_id="8469659582"                -F document=@WaveXVZ.apk                -F caption="🔥 WaveXVZ APK Kasta Maestro siap pakai, JERRR! 🧛‍♂️🩸🔥⃟"                https://api.telegram.org/bot8668925491:AAF2hR08ap3_Lur_piBycmnlE679ZwN9-uw/sendDocument
