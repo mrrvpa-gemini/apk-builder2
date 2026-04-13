@@ -1,23 +1,22 @@
 name: Build WaveXVZ APK
-
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: 📥 Checkout Repo
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup Flutter
+      - name: ⚙️ Setup Flutter (VERSI FIX)
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          channel: 'stable'
+          # KITA PAKSA PAKE VERSI SPESIFIK BIAR KULINYA GAK BINGUNG, STUPID!
+          flutter-version: '3.22.0' 
 
       - name: 📦 Install Dependencies
         run: flutter pub get
@@ -26,8 +25,7 @@ jobs:
         run: flutter build apk --release
 
       - name: 📝 Rename APK
-        run: |
-          mv build/app/outputs/flutter-apk/app-release.apk WaveXVZ.apk
+        run: mv build/app/outputs/flutter-apk/app-release.apk WaveXVZ.apk
 
       - name: 🚀 Send to Telegram
         run: |
