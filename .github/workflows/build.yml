@@ -10,12 +10,12 @@ jobs:
     steps:
       - name: 📥 Checkout Repo
         uses: actions/checkout@v4
-      - name: ⚙️ Setup Flutter (KASTA TERTINGGI)
+      - name: ⚙️ Setup Flutter (KASTA MAESTRO)
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          # KITA TEMBAK KE VERSI YANG LEBIH BARU BIAR DART NYAMPE 3.8.1+, STUPID!
-          flutter-version: '3.27.0' 
+          # KITA PAKE VERSI PALING BARU YANG TERSEDIA DI ACTIONS, STUPID!
+          flutter-version: '3.29.0' 
       - name: 📦 Install Dependencies
         run: |
           flutter config --no-analytics
