@@ -10,20 +10,17 @@ jobs:
     steps:
       - name: 📥 Checkout Repo
         uses: actions/checkout@v4
-      - name: ⚙️ Setup Flutter (KASTA MAESTRO)
+      - name: ⚙️ Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          # KITA PAKE VERSI PALING BARU YANG TERSEDIA DI ACTIONS, STUPID!
-          flutter-version: '3.29.0' 
+          flutter-version: '3.24.0'
       - name: 📦 Install Dependencies
-        run: |
-          flutter config --no-analytics
-          flutter pub get
-      - name: 🏗️ Build APK Kasta Maestro
+        run: flutter pub get
+      - name: 🏗️ Build APK
         run: flutter build apk --release
-      - name: 📝 Rename APK
-        run: mv build/app/outputs/flutter-apk/app-release.apk WaveXVZ.apk
-      - name: 🚀 Send to Telegram
-        run: |
-          curl -F chat_id="8469659582"                -F document=@WaveXVZ.apk                -F caption="🔥 WaveXVZ APK Kasta Maestro siap pakai, JERRR! 🧛‍♂️🩸🔥⃟"                https://api.telegram.org/bot8668925491:AAF2hR08ap3_Lur_piBycmnlE679ZwN9-uw/sendDocument
+      - name: 🚀 BUNGKUS APK (ARTIFACT)
+        uses: actions/upload-artifact@v4
+        with:
+          name: WaveXVZ-Kasta-Maestro
+          path: build/app/outputs/flutter-apk/app-release.apk
