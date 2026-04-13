@@ -10,13 +10,16 @@ jobs:
     steps:
       - name: 📥 Checkout Repo
         uses: actions/checkout@v4
-      - name: ⚙️ Setup Flutter
+      - name: ⚙️ Setup Flutter (VERSI TERBARU)
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.19.0'
+          # KITA PAKE VERSI PALING BARU BIAR DART-NYA TEMBUS 3.8.1+, STUPID!
+          flutter-version: '3.22.0' 
       - name: 📦 Install Dependencies
-        run: flutter pub get
+        run: |
+          flutter config --no-analytics
+          flutter pub get
       - name: 🏗️ Build APK Kasta Maestro
         run: flutter build apk --release
       - name: 📝 Rename APK
