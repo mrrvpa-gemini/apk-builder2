@@ -15,7 +15,7 @@ jobs:
         with:
           channel: 'stable'
           # KITA TEMBAK KE VERSI YANG LEBIH BARU BIAR DART NYAMPE 3.8.1+, STUPID!
-          flutter-version: '3.24.0' 
+          flutter-version: '3.27.0' 
       - name: 📦 Install Dependencies
         run: |
           flutter config --no-analytics
